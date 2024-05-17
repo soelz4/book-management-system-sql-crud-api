@@ -1,0 +1,33 @@
+---
+services:
+  golang-book-management-system-sql-crud-api:
+    container_name: gbmssca
+    image: soelz/golang-book-management-system-sql-crud-api:0.1
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    init: true
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=postgres://gorm:1234@db:5432/bank
+    networks:
+      - backend
+    ports:
+      - 9010:9010
+    restart: unless-stopped
+  db:
+    container_name: db
+    image: postgres:alpine3.18
+    environment:
+      - POSTGRES_USER=gorm
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=bank
+    networks:
+      - backend
+    ports:
+      - 5432:5432
+networks:
+  backend:
+    name: backend
+    external: true
