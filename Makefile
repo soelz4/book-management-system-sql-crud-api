@@ -4,10 +4,6 @@ SRC_DIR := src
 BINARY_NAME = main
 BINARY_DIR := bin
 
-# Docker
-IMAGE_REPO ?= soelz/golang-book-management-system-sql-crud-api
-IMAGE_TAG ?= 0.1
-
 help:  ## 💬 This Help Message
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
 
@@ -30,6 +26,29 @@ build: ## 🔨 Build Binary File
 run: build ## 🏃 Run the Web Server Locally at PORT 8080
 	$(BINARY_DIR)/$(BINARY_NAME)
 
+# Resolve Dependencies
+init: ## 📥 Download Dependencies From go.mod File
+	go mod download
+
+# Clean up Project
+clean: ## 🧹 Clean up Project
+	go clean
+	rm $(BINARY_DIR)/$(BINARY_NAME)
+
+# Docker
+IMAGE_REPO := soelz/golang-book-management-system-sql-crud-api
+IMAGE_TAG := 0.1
+DATABASE_URL := postgres://gorm:1234@db:5432/bank
+PostgreSQL_IMAGE := postgres:alpine3.18
+
+# Pull PostgreSQL Docker Image from Docker Hub Registry
+postgres: ## 🗄  Pull PostgreSQL Docker Image from Docker Hub Registry
+	docker pull $(PostgreSQL_IMAGE)
+
+# Create Docker Network
+docker-network: ## 🪡 Create Docker Network
+	docker network create -d bridge backend
+
 # Build Docker Image
 image:  ## 🔨 Build Docker Container Image from Dockerfile 
 	docker build . --file docker/Dockerfile \
@@ -39,11 +58,10 @@ image:  ## 🔨 Build Docker Container Image from Dockerfile
 push:  ## 📤 Push Container Image to Registry 
 	docker push $(IMAGE_REPO):$(IMAGE_TAG)
 
-# Resolve Dependencies
-init: ## 📥 Download Dependencies From go.mod File
-	go mod download
+# RUN Containers with Docker Compose
+compose-up: ## 🧷 Create and Start Containers
+	docker compose up --build
 
-# Clean up Project
-clean: ## 🧹 Clean up Project
-	go clean
-	rm $(BINARY_DIR)/$(BINARY_NAME)
+# Stop and Remove Containers, Networks
+compose-down: ## 🗑  Stop and Remove Containers, Networks
+	docker compose down
