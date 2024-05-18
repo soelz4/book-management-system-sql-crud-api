@@ -1,6 +1,6 @@
-# CRUD-API
+# book-management-system-sql-crud-api
 
-Build A CRUD API With Golang
+Book Management System with DataBase (PostgreSQL)
 
 <img src="diagram0.jpg" width="850px">
 <img src="diagram1.jpg" width="850px">
