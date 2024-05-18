@@ -1,7 +1,7 @@
 # Please Don't Change
 SRC_DIR := src
 .DEFAULT_GOAL := help
-BINARY_NAME = main
+BINARY_NAME := main
 BINARY_DIR := bin
 
 help:  ## 💬 This Help Message
@@ -42,7 +42,7 @@ DATABASE_URL := postgres://gorm:1234@db:5432/bank
 PostgreSQL_IMAGE := postgres:alpine3.18
 
 # Pull PostgreSQL Docker Image from Docker Hub Registry
-postgres: ## 🗄  Pull PostgreSQL Docker Image from Docker Hub Registry
+postgres: ## 📚 Pull PostgreSQL Docker Image from Docker Hub Registry
 	docker pull $(PostgreSQL_IMAGE)
 
 # Create Docker Network
@@ -50,7 +50,7 @@ docker-network: ## 🪡 Create Docker Network
 	docker network create -d bridge backend
 
 # Build Docker Image
-image:  ## 🔨 Build Docker Container Image from Dockerfile 
+image:  ## 📦 Build Docker Container Image from Dockerfile 
 	docker build . --file docker/Dockerfile \
 	--tag $(IMAGE_REPO):$(IMAGE_TAG)
 
@@ -63,5 +63,5 @@ compose-up: ## 🧷 Create and Start Containers
 	docker compose up --build
 
 # Stop and Remove Containers, Networks
-compose-down: ## 🗑  Stop and Remove Containers, Networks
+compose-down: ## 🧼 Stop and Remove Containers, Networks
 	docker compose down
