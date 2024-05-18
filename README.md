@@ -47,7 +47,7 @@ Makefile Variables
 
 ## DataBase (PostgreSQL)
 
-PostgreSQL Configurations Available in [./src/pkg/config/app.go](src/pkg/config/app.go).
+PostgreSQL ORM Configurations ([GORM](https://gorm.io/)) Available in [./src/pkg/config/app.go](src/pkg/config/app.go).
 
 ## Containers
 
