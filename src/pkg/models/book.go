@@ -15,9 +15,12 @@ type Book struct {
 	Publication string `        json:"publication"`
 }
 
+// The init Function is a Function that Takes no Argument and Returns Nothing.
+// This Function Executes After the Package is Imported and Maintains the Order of Execution.
 func init() {
 	config.Connect()
 	db = config.GetDb()
+	// Automatically Migrate your Schema, to Keep your Schema Up to Date.
 	db.AutoMigrate(&Book{})
 }
 
