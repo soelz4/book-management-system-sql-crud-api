@@ -23,7 +23,7 @@ build: ## 🔨 Build Binary File
 	go build -o $(BINARY_DIR)/$(BINARY_NAME) $(SRC_DIR)/cmd/main/main.go
 
 # RUN
-run: build ## 🏃 Run the Web Server Locally at PORT 8080
+run: build ## 🏃 Run the Web Server Locally at PORT 9010
 	$(BINARY_DIR)/$(BINARY_NAME)
 
 # Resolve Dependencies

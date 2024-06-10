@@ -16,6 +16,7 @@ var NewBook models.Book
 
 func GetBooks(w http.ResponseWriter, r *http.Request) {
 	newbooks := models.GetAllBooks()
+	// Marshal Returns the JSON Encoding of Parameter
 	res, _ := json.Marshal(newbooks)
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -23,7 +24,7 @@ func GetBooks(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetBookByID(w http.ResponseWriter, r *http.Request) {
-	// Save given ID in /movies/{id} in params
+	// Save given ID in /book/{id} in params
 	params := mux.Vars(r)
 	bookID := params["bookID"]
 	// Parse INT ~> Convert STRING into the INT
@@ -49,7 +50,7 @@ func CreateBook(w http.ResponseWriter, r *http.Request) {
 }
 
 func DeleteBookByID(w http.ResponseWriter, r *http.Request) {
-	// Save given ID in /movies/{id} in params
+	// Save given ID in /book/{id} in params
 	params := mux.Vars(r)
 	bookID := params["bookID"]
 	// Parse INT ~> Convert STRING into the INT
@@ -68,7 +69,7 @@ func DeleteBookByID(w http.ResponseWriter, r *http.Request) {
 func UpdateBookByID(w http.ResponseWriter, r *http.Request) {
 	updateBook := &models.Book{}
 	utils.ParseBody(r, updateBook)
-	// Save given ID in /movies/{id} in params
+	// Save given ID in /book/{id} in params
 	params := mux.Vars(r)
 	bookID := params["bookID"]
 	// Parse INT ~> Convert STRING into the INT
